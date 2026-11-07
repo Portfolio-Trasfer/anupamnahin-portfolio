@@ -1,9 +1,9 @@
 {
   "settings": {
-    "brandName": "Aristide Benoist",
+    "brandName": "anupam nahin",
     "brandRole": "Creative Developer • WebGL",
     "aboutBio": "Independent creative developer focused on crafting fluid interactive WebGL experiences, generative motion design, and high-performance digital typography. Specializing in Three.js, custom GLSL shader pipelines, virtual inertial physics, and cinematic UI choreographies for international brands and design ateliers.",
-    "contactEmail": "contact@aristidebenoist.com",
+    "contactEmail": "anupam.nahin@gmail.com",
     "socials": [
       {
         "name": "Website",
@@ -21,7 +21,7 @@
     "bendStrength": 1.8,
     "rgbShiftStrength": 0.0015,
     "scrollEase": 0.075,
-    "claimedDeviceHash": null
+    "claimedDeviceHash": "d3e620d30135026e9cb4dc81dd2243c6aeda6978b5a8a0e2a3fddaeabb14ed00"
   },
   "projects": [
     {
