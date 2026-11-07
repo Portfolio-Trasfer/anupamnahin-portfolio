@@ -1,0 +1,88 @@
+{
+  "settings": {
+    "brandName": "Aristide Benoist",
+    "brandRole": "Creative Developer • WebGL",
+    "aboutBio": "Independent creative developer focused on crafting fluid interactive WebGL experiences, generative motion design, and high-performance digital typography. Specializing in Three.js, custom GLSL shader pipelines, virtual inertial physics, and cinematic UI choreographies for international brands and design ateliers.",
+    "contactEmail": "contact@aristidebenoist.com",
+    "socials": [
+      {
+        "name": "Website",
+        "url": "https://aristidebenoist.com"
+      },
+      {
+        "name": "Twitter",
+        "url": "https://twitter.com"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com"
+      }
+    ],
+    "bendStrength": 1.8,
+    "rgbShiftStrength": 0.0015,
+    "scrollEase": 0.075,
+    "claimedDeviceHash": null
+  },
+  "projects": [
+    {
+      "id": "01",
+      "title": "Aura Sanctum",
+      "client": "Atelier Minimal",
+      "role": "Art Direction & WebGL",
+      "year": "2025",
+      "imageWidth": 1920,
+      "imageHeight": 1280,
+      "textureUrl": "/textures/project-01.jpg",
+      "description": "Spatial architectural visualization, dynamic perspective lighting, and kinetic identity systems for contemporary museum installations.",
+      "accentColor": "#4f46e5"
+    },
+    {
+      "id": "02",
+      "title": "Monolith Void",
+      "client": "Studio Kanso",
+      "role": "Creative Development",
+      "year": "2025",
+      "imageWidth": 1920,
+      "imageHeight": 1280,
+      "textureUrl": "/textures/project-02.jpg",
+      "description": "Monochromatic exploration of light, brutalist monolithic structures, and real-time volumetric shadow simulations.",
+      "accentColor": "#38bdf8"
+    },
+    {
+      "id": "03",
+      "title": "Elysian Pulse",
+      "client": "Vesper Media",
+      "role": "Shader Programming",
+      "year": "2024",
+      "imageWidth": 1920,
+      "imageHeight": 1280,
+      "textureUrl": "/textures/project-03.jpg",
+      "description": "Dynamic typography deformation and audio-reactive procedural textures created for an interactive sound laboratory.",
+      "accentColor": "#f43f5e"
+    },
+    {
+      "id": "04",
+      "title": "Chronos Rift",
+      "client": "Neo Dimension",
+      "role": "Interactive Direction",
+      "year": "2024",
+      "imageWidth": 1920,
+      "imageHeight": 1280,
+      "textureUrl": "/textures/project-04.jpg",
+      "description": "Experimental temporal transitions, spatial velocity waves, and custom GLSL vertex distortion mechanisms.",
+      "accentColor": "#10b981"
+    },
+    {
+      "id": "05",
+      "title": "Silent Form",
+      "client": "Galerie Blanche",
+      "role": "WebGL Experience",
+      "year": "2023",
+      "imageWidth": 1920,
+      "imageHeight": 1280,
+      "textureUrl": "/textures/project-05.jpg",
+      "description": "Curated digital sculptures and virtual exhibition halls featuring ultra-smooth inertial drag mechanics and cover UV scaling.",
+      "accentColor": "#a1a1aa"
+    }
+  ]
+}

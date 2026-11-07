@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aristide Benoist — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="bg-[#0e0e0e] text-[#f4f4f4] overflow-hidden select-none w-screen h-screen m-0 p-0 font-sans antialiased">
+    <!-- WebGL Canvas Layer -->
+    <canvas id="webgl-canvas" class="fixed inset-0 pointer-events-none z-[1]"></canvas>
+
+    <!-- Main HUD Chrome Layer (Wrapper has pointer-events: none) -->
+    <div id="hud" class="fixed inset-0 pointer-events-none z-20 flex flex-col justify-between p-6 sm:p-10 transition-opacity duration-500">
+      <!-- Header -->
+      <header class="flex justify-between items-start pointer-events-none w-full">
+        <div class="flex flex-col pointer-events-none">
+          <span id="brand-name" class="site-title tracking-[0.25em] uppercase text-xs sm:text-sm font-semibold text-white/90">
+            Aristide Benoist
+          </span>
+          <span id="brand-role" class="text-[10px] tracking-[0.2em] uppercase text-white/40 mt-1">
+            Creative Developer • WebGL
+          </span>
+        </div>
+        <nav class="flex gap-8 uppercase text-xs sm:text-sm tracking-[0.2em] pointer-events-none">
+          <button id="nav-index" data-ui-interactive="true" class="hover:text-white text-white/60 transition-colors py-1 cursor-pointer pointer-events-auto">Index</button>
+          <button id="nav-about" data-ui-interactive="true" class="hover:text-white text-white/60 transition-colors py-1 cursor-pointer pointer-events-auto">About</button>
+        </nav>
+      </header>
+
+      <!-- Center Minimal '+' Crosshair SVG (opacity 0.4) -->
+      <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <svg class="w-3 h-3 opacity-40 text-white" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2">
+          <line x1="6" y1="0" x2="6" y2="12"></line>
+          <line x1="0" y1="6" x2="12" y2="6"></line>
+        </svg>
+      </div>
+
+      <!-- Bottom Bar -->
+      <footer class="flex justify-between items-end pointer-events-none w-full">
+        <!-- Active Project Label -->
+        <div id="active-project-info" class="flex flex-col max-w-[200px] sm:max-w-xs transition-opacity duration-300 pointer-events-none">
+          <span id="active-title" class="text-xs sm:text-sm uppercase tracking-[0.18em] font-medium text-white/90 truncate">
+            Aura Sanctum
+          </span>
+          <span id="active-client" class="text-[10px] sm:text-xs tracking-[0.14em] uppercase text-white/40 mt-0.5 truncate">
+            Atelier Minimal
+          </span>
+        </div>
+
+        <!-- Center Counter '01 — 05' -->
+        <div id="project-counter" class="text-xs sm:text-sm tracking-[0.3em] font-mono text-white/80 select-none pb-0.5 pointer-events-none">
+          01 — 05
+        </div>
+
+        <!-- Right Side: Interaction Hint + Admin Button -->
+        <div class="flex items-center gap-4 pointer-events-none">
+          <span class="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-white/40 hidden md:inline">
+            Drag / Wheel
+          </span>
+          <button id="btn-open-admin" data-ui-interactive="true" class="hidden text-[10px] tracking-[0.2em] uppercase text-white/60 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/10 transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5 cursor-pointer pointer-events-auto">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+            <span>Admin</span>
+            <span class="text-white/30 text-[9px]">[⇧A]</span>
+          </button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Expanded Project Overlay (Wrapper has pointer-events: none) -->
+    <div id="project-overlay" class="fixed inset-0 pointer-events-none z-40 opacity-0 flex flex-col justify-between p-6 sm:p-12 overflow-hidden bg-gradient-to-t from-black/90 via-black/40 to-black/70 transition-opacity duration-500">
+      <!-- Overlay Header -->
+      <div class="flex justify-between items-center w-full relative z-[60] pointer-events-none">
+        <div id="expanded-number" class="text-xs font-mono tracking-[0.25em] text-white/50 bg-black/40 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-sm pointer-events-none">
+          01 / 05
+        </div>
+        <!-- High-Contrast Close Button -->
+        <button id="btn-close-project" data-ui-interactive="true" class="group flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-lg border border-white/25 text-xs sm:text-sm font-semibold uppercase tracking-widest text-white shadow-2xl cursor-pointer transition-all hover:scale-105 active:scale-95 pointer-events-auto z-[60]">
+          <span class="text-base group-hover:rotate-90 transition-transform duration-300">✕</span>
+          <span>Close [ESC]</span>
+        </button>
+      </div>
+
+      <!-- Typography Body Card (pointer-events: none so clicks on screen pass to window) -->
+      <div id="project-card" class="max-w-3xl my-auto pointer-events-none py-8 relative z-[50]">
+        <span id="expanded-role" class="text-xs tracking-[0.3em] uppercase text-indigo-400 font-semibold block mb-3 font-mono">
+          Art Direction & WebGL
+        </span>
+        <h1 id="expanded-title" class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight uppercase leading-none text-white mb-6">
+          Aura Sanctum
+        </h1>
+        <p id="expanded-description" class="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed font-light mb-8 max-w-2xl">
+          Spatial architectural visualization and kinetic identity.
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-6 border-t border-white/15 text-xs tracking-wider uppercase">
+          <div>
+            <div class="text-white/40 text-[10px] mb-1 font-mono">Client</div>
+            <div id="expanded-client" class="text-white font-medium">Atelier Minimal</div>
+          </div>
+          <div>
+            <div class="text-white/40 text-[10px] mb-1 font-mono">Year</div>
+            <div id="expanded-year" class="text-white font-medium">2025</div>
+          </div>
+          <div>
+            <div class="text-white/40 text-[10px] mb-1 font-mono">Technology</div>
+            <div class="text-white font-medium">WebGL • GLSL • GSAP</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overlay Footer -->
+      <div class="text-[10px] tracking-[0.25em] uppercase text-white/40 pointer-events-none flex justify-between items-center relative z-[50]">
+        <span>Portfolio Archive</span>
+        <span class="hidden sm:inline">Click anywhere or press Esc to return</span>
+      </div>
+    </div>
+
+    <!-- About View Modal Overlay -->
+    <div id="about-overlay" class="fixed inset-0 pointer-events-none z-50 opacity-0 flex items-center justify-center p-6 bg-black/85 backdrop-blur-xl transition-opacity duration-500">
+      <div class="max-w-xl w-full border border-white/10 bg-[#121214] p-8 sm:p-12 rounded-lg pointer-events-auto relative">
+        <button id="btn-close-about" data-ui-interactive="true" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors text-lg p-2 cursor-pointer">
+          ✕
+        </button>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-indigo-400 mb-3 font-mono">Biography</div>
+        <h2 id="about-brand-name" class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-6 uppercase">
+          Aristide Benoist
+        </h2>
+        <p id="about-bio" class="text-white/80 text-sm leading-relaxed mb-6 font-light whitespace-pre-line">
+          Independent creative developer focused on crafting fluid interactive WebGL experiences, generative motion design, and high-performance digital typography.
+        </p>
+        <div class="text-xs text-white/50 mb-6 font-mono">
+          Contact: <a id="about-email" data-ui-interactive="true" href="mailto:contact@aristidebenoist.com" class="text-indigo-400 hover:underline">contact@aristidebenoist.com</a>
+        </div>
+        <div id="about-socials" class="pt-6 border-t border-white/10 flex flex-wrap gap-6 text-xs uppercase tracking-widest text-white/70">
+          <a href="https://aristidebenoist.com" data-ui-interactive="true" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors underline underline-offset-4">Website</a>
+          <a href="https://twitter.com" data-ui-interactive="true" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors underline underline-offset-4">Twitter</a>
+          <a href="https://github.com" data-ui-interactive="true" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors underline underline-offset-4">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Index View Modal Overlay -->
+    <div id="index-overlay" class="fixed inset-0 pointer-events-none z-50 opacity-0 flex items-center justify-center p-6 bg-black/85 backdrop-blur-xl transition-opacity duration-500">
+      <div class="max-w-2xl w-full border border-white/10 bg-[#121214] p-8 sm:p-12 rounded-lg pointer-events-auto relative">
+        <button id="btn-close-index" data-ui-interactive="true" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors text-lg p-2 cursor-pointer">
+          ✕
+        </button>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-indigo-400 mb-6 font-mono">Index Directory</div>
+        <ul id="index-list" class="divide-y divide-white/10">
+          <!-- Populated dynamically with data-ui-interactive="true" -->
+        </ul>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
